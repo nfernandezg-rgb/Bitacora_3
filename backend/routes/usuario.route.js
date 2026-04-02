@@ -21,6 +21,7 @@ router.post("/", async (req, res) => {
     }
 });
 
+
 // GET: Solicitar los datos de los empleados a la BD
 router.get("/", async (req, res) => {
     try {
@@ -31,6 +32,30 @@ router.get("/", async (req, res) => {
         }
 
         // Agregar puntosTotales dinámicamente
+        const usuarioConTotales = {
+            ...usuario._doc,
+            puntosTotales: usuario.puntosDisponibles + usuario.puntosCanjeados
+        };
+
+        res.json(usuarioConTotales);
+
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+});
+
+
+//Get por correo (adaptado al email en el JS del frontend)
+router.get("/:correo", async (req, res) => {
+    const { correo } = req.params;
+
+    try {
+        const usuario = await Usuario.findOne({ correo });
+
+        if (!usuario) {
+            return res.status(404).json({ mensaje: "Usuario no encontrado" });
+        }
+
         const usuarioConTotales = {
             ...usuario._doc,
             puntosTotales: usuario.puntosDisponibles + usuario.puntosCanjeados
