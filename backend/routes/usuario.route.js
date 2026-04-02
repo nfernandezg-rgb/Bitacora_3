@@ -25,20 +25,8 @@ router.post("/", async (req, res) => {
 // GET: Solicitar los datos de los empleados a la BD
 router.get("/", async (req, res) => {
     try {
-        const usuario = await Usuario.findOne();
-
-        if (!usuario) {
-            return res.status(404).json({ mensaje: "No hay usuario registrado" });
-        }
-
-        // Agregar puntosTotales dinámicamente
-        const usuarioConTotales = {
-            ...usuario._doc,
-            puntosTotales: usuario.puntosDisponibles + usuario.puntosCanjeados
-        };
-
-        res.json(usuarioConTotales);
-
+        const usuarios = await Usuario.find();
+        res.json(usuarios);
     } catch (error) {
         res.status(500).json({ error: error.message });
     }
@@ -47,7 +35,7 @@ router.get("/", async (req, res) => {
 
 //Get por correo (adaptado al email en el JS del frontend)
 router.get("/:correo", async (req, res) => {
-    const { correo } = req.params;
+    const correo = decodeURIComponent(req.params.correo);
 
     try {
         const usuario = await Usuario.findOne({ correo });
