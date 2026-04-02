@@ -5,7 +5,7 @@ const schemaProducto = new mongoose.Schema({
         type: String,
         required: true
     },
-    puntosRequeridos: {
+    puntosNecesarios: {
         type: Number,
         required: true
     },
