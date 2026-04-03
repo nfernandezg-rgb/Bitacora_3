@@ -2,7 +2,6 @@ const express = require("express");
 const router = express.Router();  // se crea la senhal
 const Usuario = require("../models/usuario.model");
 
-
 //Rutas
 // POST: Crear usuario
 router.post("/", async (req, res) => {
@@ -21,7 +20,6 @@ router.post("/", async (req, res) => {
     }
 });
 
-
 // GET: Solicitar los datos de los empleados a la BD
 router.get("/", async (req, res) => {
     try {
@@ -31,7 +29,6 @@ router.get("/", async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 });
-
 
 //Get por correo (adaptado al email en el JS del frontend)
 router.get("/:correo", async (req, res) => {
