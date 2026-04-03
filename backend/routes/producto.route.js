@@ -4,14 +4,14 @@ const Producto = require("../models/producto.model");
 
 // POST: Crear producto
 router.post("/", async (req, res) => {
-    const { nombre, puntosRequeridos, comercio } = req.body;
+    const { nombre, puntosNecesarios, comercio } = req.body;
 
-    if (!nombre || !puntosRequeridos || !comercio) {
+    if (!nombre || !puntosNecesarios || !comercio) {
         return res.status(400).json({ mensajeError: "Todos los datos son obligatorios" });
     }
 
     try {
-        const nuevoProducto = new Producto({ nombre, puntosRequeridos, comercio });
+        const nuevoProducto = new Producto({ nombre, puntosNecesarios, comercio });
         await nuevoProducto.save();
         res.status(201).json(nuevoProducto);
     } catch (error) {
