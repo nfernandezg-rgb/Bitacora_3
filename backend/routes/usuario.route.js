@@ -6,14 +6,14 @@ const Usuario = require("../models/usuario.model");
 //Rutas
 // POST: Crear usuario
 router.post("/", async (req, res) => {
-    const { nombre, correo } = req.body;
+    const { nombre, correo, puntosDisponibles, puntosCanjeados} = req.body;
 
     if (!nombre || !correo) {
         return res.status(400).json({ mensajeError: "Nombre y correo son obligatorios" });
     }
 
     try {
-        const nuevoUsuario = new Usuario({ nombre, correo });
+        const nuevoUsuario = new Usuario({ nombre, correo, puntosDisponibles, puntosCanjeados });
         await nuevoUsuario.save();
         res.status(201).json(nuevoUsuario);
     } catch (error) {
